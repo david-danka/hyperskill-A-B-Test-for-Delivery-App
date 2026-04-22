@@ -3,49 +3,65 @@
 ## Overview
 
 This project simulates a real-world A/B testing workflow for a food delivery application.
-The goal is to evaluate whether a new interface increases the average order value (AOV).
+
+The goal is to increase average order value (AOV) by deploying a new web interface based on user feedback.  
+The analysis evaluates whether the new interface leads to a statistically significant change in AOV using hypothesis testing.
 
 ## Project Structure
 
 The analysis follows a complete experimental pipeline:
 
-1. **Sample Validation (A/A Test)**
+1. **Sample Size Verification (A/A Test)**
 
-   * Levene’s test for variance equality
-   * Independent t-test for mean comparison
+   * Context: Two samples were drawn before deploying the new interface  
+   * Goal: Verify that the sample size is sufficient for A/B testing  
+   * Methods:
+     * Levene’s test for variance equality  
+     * Independent t-test for mean comparison  
+   * Result: The test indicates unequal means, suggesting insufficient sample size  
 
 2. **Sample Size Estimation**
 
-   * Power analysis to determine required sample size
+   * Goal: Estimate the required sample size for reliable testing  
+   * Method: Power analysis  
+   * Result: Required sample size is calculated and compared with available data  
 
 3. **Exploratory Data Analysis (EDA)**
 
-   * Session trends over time
-   * Distribution analysis
-   * Outlier detection and removal (99th percentile)
+   * Goal: Understand user behavior and data distribution  
+   * Methods:
+     * Session trends over time (seasonality check)  
+     * Distribution analysis  
+     * Outlier detection and removal (99th percentile)  
 
 4. **Non-parametric Hypothesis Testing**
 
-   * Mann-Whitney U test (no normality assumption)
+   * Goal: Compare AOV distributions between control and experimental groups  
+   * Method: Mann-Whitney U test (no normality assumption)  
+   * Result: The test suggests a difference in distributions between groups  
 
 5. **Parametric Validation**
 
-   * Log transformation of skewed data
-   * Levene’s test + t-test on transformed data
+   * Goal: Compare average order value between groups using a parametric approach  
+   * Method:
+     * Log transformation of skewed data  
+     * Levene’s test for variance equality  
+     * Independent t-test on transformed data  
+   * Results:
+     * Evidence suggests a difference in AOV between groups  
+     * Higher AOV observed in the experimental group  
+   * Interpretation: The experimental interface is associated with higher AOV, suggesting a positive impact on user spending  
 
-## Key Insights
-
-* Outliers significantly impact AOV and must be handled carefully
-* The distribution of order values is skewed, requiring non-parametric methods
-* Log transformation allows parametric testing for confirmation
+   To validate the findings, a parametric test is performed after transforming the data to better approximate normality.
 
 ## Technologies Used
 
-* Python
-* pandas, NumPy
-* SciPy
-* statsmodels
-* matplotlib
+* Python  
+* pandas  
+* NumPy  
+* SciPy  
+* statsmodels  
+* matplotlib  
 
 ## How to Run
 
@@ -55,8 +71,6 @@ Run the script:
 python main.py
 ```
 
+Ensure that both datasets (`aa_test.csv` and `ab_test.csv`) are located in the same directory as the script.
+
 All five stages will execute sequentially and display results.
-
-## Notes
-
-This project was completed as part of a data analysis training program, with additional refactoring to improve readability and structure.
