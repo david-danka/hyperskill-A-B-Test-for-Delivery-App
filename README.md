@@ -74,3 +74,9 @@ python main.py
 Ensure that both datasets (`aa_test.csv` and `ab_test.csv`) are located in the same directory as the script.
 
 All five stages will execute sequentially and display results.
+
+## Notes
+
+This project was originally completed as part of the Hyperskill Data Analyst track.
+
+The solution was later refactored to improve code structure, readability, and clarity of statistical interpretation.
